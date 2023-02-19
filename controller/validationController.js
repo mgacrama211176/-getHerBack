@@ -44,7 +44,7 @@ export const forgotPassController = async (request, response, next) => {
     await client.connect();
     const database = client.db("GetherPairingDB");
     const users = database.collection("users");
-    const validatorToken = crypto.randomBytes(6).toString("hex");
+    const validatorToken = crypto.randomBytes(3).toString("hex");
 
     const chkEmail = request.body.email;
     const password = validatorToken;
