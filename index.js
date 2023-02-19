@@ -106,7 +106,7 @@ app.post("/signup", async (req, res) => {
       text:
         `Thank you for signing up for our services. To complete the registration process and start using our platform, we need to verify your email address.. \n \n` +
         `Please click the link below to confirm your email address: \n \n` +
-        `http://localhost:3000/verified/${validatorToken} \n \n` +
+        `https://getherapp-six.vercel.app/verified/${validatorToken} \n \n` +
         `If you did not sign up for our services, please ignore this email. \n`,
     };
 
@@ -233,7 +233,7 @@ app.post("/login", async (req, res) => {
           text:
             `Thank you for signing up for our services. To complete the registration process and start using our platform, we need to verify your email address.. \n \n` +
             `Please click the link below to confirm your email address: \n \n` +
-            `http://localhost:3000/verified/${validatorToken} \n \n` +
+            `https://getherapp-six.vercel.app/verified/${validatorToken} \n \n` +
             `If you did not sign up for our services, please ignore this email. \n`,
         };
 
