@@ -8,8 +8,8 @@ import {
 const router = express();
 
 // get all the users from the database
-router.post("/addNotif", addNotif);
-router.get("/getNotif", fetchAllNotif);
-router.put("/updateNotif", updateNotif);
+router.post("/addNotif/:selectedId/:userId", addNotif);
+router.get("/getNotif/:selectedId", fetchAllNotif);
+router.put("/updateNotif/:selectedId", updateNotif);
 
 export default router;

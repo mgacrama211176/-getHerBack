@@ -7,7 +7,11 @@ const uri = process.env.URI;
 
 export const fetchAllNotif = async (request, response, next) => {
   const client = new MongoClient(uri);
-  const { selectedId, status } = request.body;
+
+  const selectedId = request.params.selectedId;
+
+  console.log(selectedId);
+
   try {
     await client.connect();
     const database = client.db("GetherPairingDB");
@@ -29,14 +33,21 @@ export const fetchAllNotif = async (request, response, next) => {
 
 export const addNotif = async (request, response, next) => {
   const client = new MongoClient(uri);
-  const { userId, selectedId } = request.body;
+  const selectedId = request.params.userId;
+  const userId = request.params.selectedId;
 
   try {
     await client.connect();
     const database = client.db("GetherPairingDB");
     const notification = database.collection("notifications");
+    const users = database.collection("users");
+
+    const fetchdata = await users.findOne({
+      user_id: userId,
+    });
 
     const AddNotification = {
+      first_name: fetchdata.first_name,
       userId: userId,
       selectedId: selectedId,
       status: false,
@@ -54,16 +65,20 @@ export const addNotif = async (request, response, next) => {
 
 export const updateNotif = async (request, response, next) => {
   const client = new MongoClient(uri);
-  const { selectedId } = request.body;
+  const selectedId = request.params.selectedId;
 
   try {
     await client.connect();
     const database = client.db("GetherPairingDB");
     const notification = database.collection("notifications");
 
-    const fetchRequesting = await notification
-      .find({ selectedId: selectedId })
-      .toArray();
+    const fetchRequesting = await notification.findOneAndUpdate(
+      {
+        selectedId: selectedId,
+      },
+      { $set: { status: true } },
+      { new: true }
+    );
 
     response.status(200).json(fetchRequesting);
   } catch (err) {
